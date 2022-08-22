@@ -29,21 +29,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         mainActivityViewModel.init(this);
 
         mainActivityViewModel.getEmployees().observe(this, new Observer<List<Employee>>() {
             @Override
             public void onChanged(List<Employee> employees) {
-                mAdapter.notifyDataSetChanged();
-            }
-        });
-        mainActivityViewModel.getIsUpdating().observe(this, aBoolean -> {
-            if(aBoolean){
-                showProgressBar();
-            }else{
                 hideProgressBar();
+                mAdapter.notifyDataSetChanged();
             }
         });
 

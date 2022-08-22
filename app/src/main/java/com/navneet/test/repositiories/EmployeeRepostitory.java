@@ -55,6 +55,7 @@ public class EmployeeRepostitory {
 
                         try {
                             String output = (String) response.opt("status");
+//                       Checking if data received is proper
                             if(output.equals("success")) {
                                 JSONArray jsonArray = response.optJSONArray("data");
                                 for (int i = 0; i < Objects.requireNonNull(jsonArray).length(); i++) {
@@ -65,6 +66,7 @@ public class EmployeeRepostitory {
                                         int employee_age = employee.getInt("employee_age");
                                         arrayList.add(new Employee(id, employee_age, name, "img", (long) salary));
                                     }
+                                data.postValue(arrayList);
 
                             }else{
                                 Toast.makeText(context, "Error in parsing Data", Toast.LENGTH_SHORT).show();

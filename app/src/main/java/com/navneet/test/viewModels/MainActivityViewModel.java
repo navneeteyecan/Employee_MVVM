@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MainActivityViewModel extends ViewModel {
     private MutableLiveData<List<Employee>> mEmployees;
-    MutableLiveData<Boolean> isUdating= new MutableLiveData<>();
+
     Context context;
 
 
@@ -23,16 +23,13 @@ public class MainActivityViewModel extends ViewModel {
             return;
         }
         EmployeeRepostitory mRepo = EmployeeRepostitory.getInstance();
-        isUdating.postValue(false);
+
         mEmployees= mRepo.getEmployeelist(context);
    }
 
     public LiveData<List<Employee>> getEmployees(){
 
         return mEmployees;
-    }
-    public LiveData<Boolean> getIsUpdating(){
-        return isUdating;
     }
 
 
