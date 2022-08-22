@@ -1,4 +1,4 @@
-package com.navneet.test.models;
+package com.navneet.employee_mvvm.models;
 
 public class Employee { int id, age; String name, image; Long salary;
     boolean isExpanded;

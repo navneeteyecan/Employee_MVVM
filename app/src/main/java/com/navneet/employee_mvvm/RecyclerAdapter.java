@@ -1,4 +1,4 @@
-package com.navneet.test;
+package com.navneet.employee_mvvm;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.navneet.test.models.Employee;
+import com.navneet.employee_mvvm.models.Employee;
 
 import java.util.ArrayList;
 

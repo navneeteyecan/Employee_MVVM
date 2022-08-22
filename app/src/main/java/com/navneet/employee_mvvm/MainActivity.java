@@ -1,4 +1,4 @@
-package com.navneet.test;
+package com.navneet.employee_mvvm;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.navneet.test.models.Employee;
-import com.navneet.test.viewModels.MainActivityViewModel;
+import com.navneet.employee_mvvm.models.Employee;
+import com.navneet.employee_mvvm.viewModels.MainActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
