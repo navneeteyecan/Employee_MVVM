@@ -1,4 +1,4 @@
-package com.navneet.employee_mvvm;
+package com.navneet.test;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.navneet.employee_mvvm.models.Employee;
-import com.navneet.employee_mvvm.viewModels.MainActivityViewModel;
+import com.navneet.test.models.Employee;
+import com.navneet.test.viewModels.MainActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);

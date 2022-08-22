@@ -10,4 +10,5 @@
 
     <color name="item_layout_background">#E6E6E6</color>
     <color name="item_container_back">#FFFFFF</color>
+    <color name="text_color">#303030</color>
 </resources>
