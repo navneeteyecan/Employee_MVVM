@@ -1,4 +1,4 @@
-package com.navneet.test;
+package com.navneet.mvvmEmploye;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.navneet.test.models.Employee;
-import com.navneet.test.viewModels.MainActivityViewModel;
+import com.navneet.mvvmEmploye.models.Employee;
+import com.navneet.mvvmEmploye.viewModels.MainActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerAdapter mAdapter;
     MainActivityViewModel mainActivityViewModel;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +36,12 @@ public class MainActivity extends AppCompatActivity {
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         mainActivityViewModel.init(this);
 
-        mainActivityViewModel.getEmployees().observe(this, new Observer<List<Employee>>() {
-            @Override
-            public void onChanged(List<Employee> employees) {
+        mainActivityViewModel.getEmployees().observe(this, employees -> {
+
+            if(employees.size()>0){
                 hideProgressBar();
-                mAdapter.notifyDataSetChanged();
             }
+            mAdapter.notifyDataSetChanged();
         });
 
         initRecyclerView();
@@ -55,5 +58,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgressBar() {  progressBar.setVisibility(View.INVISIBLE); }
+    private void hideProgressBar() {
+        Log.e("main Activity"," hiding progressbar");
+    progressBar.setVisibility(View.INVISIBLE); }
 }

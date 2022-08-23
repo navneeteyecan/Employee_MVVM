@@ -1,15 +1,17 @@
-package com.navneet.test;
+package com.navneet.mvvmEmploye;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.navneet.test.models.Employee;
+import com.bumptech.glide.Glide;
+import com.navneet.mvvmEmploye.models.Employee;
 
 import java.util.ArrayList;
 
@@ -44,7 +46,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             employeeArrayList.get(position).setExpanded(!isExpanded);
             notifyItemChanged(position);
         });
-
+        Glide.with(holder.id.getContext()).load(R.drawable.place_hoder_user).circleCrop().into(holder.imageView);
     }
 
 
@@ -57,6 +59,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, id, salary, age;
         LinearLayout layoutContainer, salaryContainer;
+        ImageView imageView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name_view);
@@ -65,6 +68,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             age = itemView.findViewById(R.id.age_view);
             layoutContainer = itemView.findViewById(R.id.layout_contianer);
             salaryContainer= itemView.findViewById(R.id.salary_layout_contianer);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }
