@@ -2,26 +2,18 @@ package com.navneet.mvvmEmploye.repositiories;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.navneet.mvvmEmploye.JsonPlaceHolderApi;
 import com.navneet.mvvmEmploye.models.Employee;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,12 +48,20 @@ public class EmployeeRepostitory {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        Call<JsonObject> status = jsonPlaceHolderApi.getStatus();
+//        Call<JsonArray> status = jsonPlaceHolderApi.getStatus();
+            Call<JsonObject> status= jsonPlaceHolderApi.getStatus();
+
+
 
 //        status.enqueue(new Callback<JsonArray>() {
 //            @Override
 //            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-//                Log.e("from repository", response.body().toString());
+//                if(response.isSuccessful()){
+//                    Log.e("from repository", response.body().toString());
+//
+//                }else {
+//                    Log.e("Response is not Successful", String.valueOf(response.code()));
+//                }
 //            }
 //
 //            @Override
@@ -69,10 +69,14 @@ public class EmployeeRepostitory {
 //
 //            }
 //        });
+
+
+
         status.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 try {
+                    if(response.isSuccessful()){
                     Log.e("from repository", response.body().toString());
                     String output = response.body().get("status").getAsString();
                     Log.e("from repository", output);
@@ -80,30 +84,33 @@ public class EmployeeRepostitory {
                     if (output.equals("success")) {
 //                Checking if data received is proper
                         JsonArray jsonArray = response.body().getAsJsonArray("data");
-                              for (int i = 0; i < Objects.requireNonNull(jsonArray).size(); i++) {
-                                  JsonObject employee = jsonArray.get(i).getAsJsonObject();
-                                  String name = employee.get("employee_name").getAsString();
-                                    int id = employee.get("id").getAsInt();
-                                    int salary = employee.get("employee_salary").getAsInt();
-                                    int employee_age = employee.get("employee_age").getAsInt();
-                                    arrayList.add(new Employee(id,  name,  salary, employee_age, "img"));
-                                }
-                            data.postValue(arrayList);
+                        for (int i = 0; i < Objects.requireNonNull(jsonArray).size(); i++) {
+                            JsonObject employee = jsonArray.get(i).getAsJsonObject();
+                            String name = employee.get("employee_name").getAsString();
+                            int id = employee.get("id").getAsInt();
+                            int salary = employee.get("employee_salary").getAsInt();
+                            int employee_age = employee.get("employee_age").getAsInt();
+                            arrayList.add(new Employee(id, name, salary, employee_age, "img"));
+                        }
+                        data.postValue(arrayList);
                     }
-                } catch (Exception e) {
+                }
+                else{
+                    Log.e("Response is not Successful", String.valueOf(response.code()));
+                }
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("Error", t.getMessage());
 
             }
         });
 
-//
-//        Log.e("Employee",response.body().string());
-//        data.postValue(arrayList);
     }
 
 //    private void loadEmployees() {
